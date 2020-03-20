@@ -1,4 +1,6 @@
 <?php
+    if( !isset($_SESSION['username']) )
+        header("Location:/users/login.php");
     try{
         $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
     

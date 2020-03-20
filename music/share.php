@@ -1,5 +1,6 @@
 <?php
 
+
 if( ($_GET['owner'])=="" )
     header("Location:/users/login.php");
 try{
