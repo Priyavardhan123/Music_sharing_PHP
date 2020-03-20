@@ -42,8 +42,8 @@
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class=""><a href="/users/register.php/">Register</a></li>
-                <li class="active"><a href="/users/login.php/">Log In</a></li>
+                <li class=""><a href="/users/register.php">Register</a></li>
+                <li class="active"><a href="/users/login.php">Log In</a></li>
             </ul>
         </div>
 
@@ -80,7 +80,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="submit" name="submit" class="btn btn-success">Submit</button>
                                 &nbsp;&nbsp;&nbsp;
                                 <!-- <a href="/password-reset.php/">Forgot Password?</a> -->
                             </div>
@@ -89,7 +89,7 @@
                     </form>
                 </div>
                 <div class="panel-footer">
-                    Don't have an account? <a href="/users/register.php/">Click here</a> to register.
+                    Don't have an account? <a href="/users/register.php">Click here</a> to register.
                 </div>
             </div>
         </div>

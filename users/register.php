@@ -29,8 +29,8 @@
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/users/register.php/">Register</a></li>
-                <li class=""><a href="/users/login.php/">Log In</a></li>
+                <li class="active"><a href="/users/register.php">Register</a></li>
+                <li class=""><a href="/users/login.php">Log In</a></li>
             </ul>
         </div>
 
@@ -79,7 +79,7 @@
         </form>
             </div>
             <div class="panel-footer">
-                Already have an account? <a href="/users/login.php/">Click here</a> to log in.
+                Already have an account? <a href="/users/login.php">Click here</a> to log in.
             </div>
         </div>
     </div>

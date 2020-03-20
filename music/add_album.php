@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/users/login.php">
+                    <a href="/users/logout.php">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
                     </a>
                 </li>
