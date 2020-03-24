@@ -25,3 +25,10 @@ create table Songs (
     FOREIGN KEY (album_title) REFERENCES Albums(album_title)
     );
 
+-- create shared_albums table
+create table Shared_Albums ( 
+    Owner VARCHAR(30),
+    Reciever VARCHAR(30),
+    album_title VARCHAR(250)
+    );
+
