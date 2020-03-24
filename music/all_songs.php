@@ -63,7 +63,7 @@ if( !isset($_SESSION['username']) )
     </div>
 </nav>
 
-<div class="col-sm-8 col-md-9">
+<div class="col-sm-8 col-md-7">
 
 
 
@@ -79,7 +79,6 @@ if( !isset($_SESSION['username']) )
             <tr>
                 <th>Title</th>
                 <th>Audio File</th>
-                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -97,12 +96,7 @@ if( !isset($_SESSION['username']) )
                             echo "<td>", $r['song_title'],"<br></td>"; 
                             echo "<td><audio controls>
                                         <source src='/music/uploads/$r[audio_file]' type='audio/mpeg'>",".mp3</audio><br></td>";
-                            echo "<td> 
-                                <form action='/music/delete_song.php?album=",$_GET['album'],"&song_title=",$r['song_title'],"&username=",$_GET['username'],"' method='post' style='display: inline;'>
-                                <button type='submit' class='btn btn-danger btn-xs'>
-                                    <span class='glyphicon glyphicon-remove'></span>&nbsp; Delete
-                                </button><br></form></td>";
-                            echo "</tr>";
+                            
                         }
                         
                     }

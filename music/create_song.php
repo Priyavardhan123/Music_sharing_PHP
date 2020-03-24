@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $_SESSION['album'] = $_GET['album'];
     if( !isset($_SESSION['username']) )
         header("Location:/users/login.php");
     try{
@@ -53,7 +54,6 @@
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/music/albums.php?username=<?php echo $_GET['username'] ?>"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums</a></li>
-                <!-- <li class=""><a href="/music/songs/(all%5Ba-zA_Z%5D+)/"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs</a></li> -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -119,7 +119,7 @@
                 <div class="panel-body">
                     <h3>Add a New Song</h3>
                     
-                    <form class="form-horizontal" role="form" action="upload.php?album=<?php echo $_GET['album']?>&username=<?php echo $_GET['username']?>" method="post">
+                    <form class="form-horizontal" action="upload.php" method="post">
                         
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -134,12 +134,12 @@
                             <span class="text-danger small"></span>
                         </div>
                         <label class="control-label col-sm-2" for="song_title"><label for="id_audio_file">Audio file:</label></label>
-                        <div class="col-sm-10"><input type="file" name="audio_file" required id="id_audio_file"></div>
+                        <div class="col-sm-10"><input type="file" name="audio_file" id="audio_file" required></div>
                     </div>
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <input class="btn btn-success" type="submit" name="submit" value="submit"/>
                             </div>
                         </div>
                     </form>

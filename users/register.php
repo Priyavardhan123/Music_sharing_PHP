@@ -45,7 +45,7 @@
                 <div class="panel-body">
                     <h3>Register for an Account</h3>
                     
-        <form class="form-horizontal" role="form" action="register_user.php" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" role="form" action="register_user.php" method="post">
                         
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">

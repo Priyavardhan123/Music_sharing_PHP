@@ -104,16 +104,16 @@ catch(PDOException $e){
                 
                 while($r=$query->fetch(PDO::FETCH_ASSOC))
                 {
-                    echo "<div class='col-sm-2' style='font-size: 10px'>";
                     if ( $r['username'] == $_GET['username'] )
                     {
+                        echo "<div class='col-sm-2' style='font-size: 10px'>";
                         echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br>",
                         "<h4><i class = 'material-icons'>remove_red_eye</i> <a href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"'>View Album</a></h4>",
                         "<h4><i class = 'material-icons'>delete</i> <a href='/music/delete_album.php?username=",$_GET['username'],"&album=",$r['album_title'],"'>Delete Album</a></h4>",
                         "<h4><i class = 'material-icons'>share</i> <a href='/music/all_users.php?username=",$_GET['username'],"&album=",$r['album_title'],"'>Share Album</a></h4>",
                         "</pre>"; 
+                        echo "</div>";
                     }
-                    echo "</div>";
                 }
             }
             catch(PDOException $e){
