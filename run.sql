@@ -10,7 +10,7 @@ create table Users (
 create table Albums ( 
     username VARCHAR(30),
     artist VARCHAR(230),
-    album_title VARCHAR(250),
+    album_title VARCHAR(250) NOT NULL PRIMARY KEY,
     genre VARCHAR(100),
     is_favorite BOOLEAN,
     FOREIGN KEY (username) REFERENCES Users(username)
