@@ -144,12 +144,17 @@
                                         echo "<td>", $r['song_title'],"<br></td>"; 
                                         echo "<td><audio controls>
                                                     <source src='/music/uploads/$r[audio_file]' type='audio/mpeg'>",".mp3</audio><br></td>";
-                                        echo "<td> 
+                                        
+                                        if ( !isset($_GET['reciever']) )
+                                        {
+                                            echo "<td> 
                                             <form action='/music/delete_song.php?album=",$_GET['album'],"&song_title=",$r['song_title'],"&username=",$_GET['username'],"' method='post' style='display: inline;'>
                                             <button type='submit' class='btn btn-danger btn-xs'>
                                                 <span class='glyphicon glyphicon-remove'></span>&nbsp; Delete
                                             </button><br></form></td>";
+                                        }
                                         echo "</tr>";
+                                        
                                     }
                                     
                                 }
