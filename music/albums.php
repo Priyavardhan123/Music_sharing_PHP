@@ -158,6 +158,7 @@ catch(PDOException $e){
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
                         echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br>",
                         "<h4><i class = 'material-icons'>remove_red_eye</i> <a href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"'>View Album</a></h4>",
+                        "<h4><i class = 'material-icons'>remove_red_eye</i> <a href='/music/delete_shared_album.php?username=",$_GET['username'],"&reciever=",$r['Reciever'],"&album=",$r['album_title'],"'>Remove Album</a></h4>",
                         "<h4>Shared by: $r[Owner]</h4>",
                         "</pre>"; 
                         echo "</div>";
