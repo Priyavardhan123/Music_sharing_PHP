@@ -11,6 +11,8 @@ if( !isset($_SESSION['username']) )
         echo $e->getMessage();
         die();
     }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -68,18 +70,25 @@ if( !isset($_SESSION['username']) )
 <div class="panel panel-default">
     <div class="panel-body">
 
-        <table class="table">
+        <table  class="table">
             <thead>
             <tr>
-                <th><h3>Users</h3></th>
+                <th>
+                <!-- <nav class="navbar navbar-light bg-light justify-content-between">    -->
+                <h3>Users</h3>
+                    <!-- <form class="form-inline" style="text-align:right;">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    </form> -->
+                <!-- </nav> -->
+                </th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>
                 <?php
-                    try{
-                        $query=$dbhandler->query('select * from Users');
+                    try{                        
+                        $query=$dbhandler->query("select username from Users WHERE username NOT IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]')");
                         echo "<form action='share.php?owner=$_GET[username]&album=$_GET[album]' method='post'>";
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {

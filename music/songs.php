@@ -126,7 +126,9 @@
                         <tr>
                             <th>Title</th>
                             <th>Audio File</th>
-                            <th>Actions</th>
+                            <?php if ( !isset($_GET['reciever']) )
+                                echo "<th>Actions</th>";
+                            ?>
                         </tr>
                         </thead>
                         <tbody>
