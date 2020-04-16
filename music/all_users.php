@@ -111,6 +111,49 @@ if( !isset($_SESSION['username']) )
             </tbody>
         </table>
 
+        <table  class="table">
+            <thead>
+            <tr>
+                <th>
+                <!-- <nav class="navbar navbar-light bg-light justify-content-between">    -->
+                <h3>Shared Users</h3>
+                    <!-- <form class="form-inline" style="text-align:right;">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    </form> -->
+                <!-- </nav> -->
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                <?php
+                    try{                        
+                        $query=$dbhandler->query("select username from Users WHERE username IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]')");
+                        echo "<form method='post' action='delete_shared_album.php?username=$_GET[username]&album=$_GET[album]'>";
+                        $rows=0;
+                        while($r=$query->fetch(PDO::FETCH_ASSOC))
+                        {
+                            if ( $r['username'] != $_GET['username'] )   
+                            {
+                                echo "<tr>";
+                                echo "<td><input type='checkbox' name='$r[username]' value='unshare'> " . $r['username'] .  '</br></td>';
+                                echo "</tr>";
+                            }
+                        }
+                        echo "<td><input class='btn btn-info' type='submit' name='submit' value='Unshare'/></td></form>";
+                    }
+                    catch(PDOException $e){
+                        echo $e->getMessage();
+                        die();
+                    }
+                ?>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
     </div>
 </div>
 

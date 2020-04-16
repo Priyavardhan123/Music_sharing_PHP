@@ -12,7 +12,7 @@ create table Albums (
     artist VARCHAR(230),
     album_title VARCHAR(250) NOT NULL PRIMARY KEY,
     genre VARCHAR(100),
-    is_favorite BOOLEAN,
+    is_private TINYINT(1) DEFAULT 0 ,
     FOREIGN KEY (username) REFERENCES Users(username)
     );
 
@@ -21,7 +21,6 @@ create table Songs (
     album_title VARCHAR(250),
     song_title VARCHAR(230),
     audio_file VARCHAR(230),
-    is_favorite BOOLEAN,
     FOREIGN KEY (album_title) REFERENCES Albums(album_title)
     );
 

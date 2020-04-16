@@ -38,11 +38,7 @@
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="/music/create_album/">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Album
-                    </a>
-                </li>
+                
                 <li>
                     <a href="/users/logout.php">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
@@ -64,7 +60,6 @@
                     <h3>Add a New Album</h3>
                     
                     <form class="form-horizontal" role="form" action="create_album.php?username=<?php echo $_GET['username'] ?>" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="csrfmiddlewaretoken" value="tbCQAEUn9fRT4JHYDXJjyekrg3Dzub0f4xbjGdR6yoFh4Bwp1WuwJnFnyibMkteu">
                         
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
@@ -90,6 +85,13 @@
         <div class="col-sm-10"><input type="text" name="genre" maxlength="100" required id="id_genre"></div>
     </div>
 
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <span class="text-danger small"></span>
+        </div>
+        <label class="control-label col-sm-2" for="song_title"><label for="id_genre">Private:</label></label>
+        <div class="col-sm-10"><input type="checkbox" name="is_private" id="is_private"></div>
+    </div>
     
 
                         <div class="form-group">

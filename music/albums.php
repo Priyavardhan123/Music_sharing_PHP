@@ -107,7 +107,11 @@ catch(PDOException $e){
                     if ( $r['username'] == $_GET['username'] )
                     {
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
-                        echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br>",
+                        if ( $r[is_private]==1 )
+                            echo "<pre><i class = 'material-icons'>lock</i>";
+                        else if ( $r[is_private]==0 )
+                            echo "<pre><i class = 'material-icons'>group</i>";
+                        echo "<h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br>",
                         "<h4><i class = 'material-icons'>remove_red_eye</i> <a href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"'>View Album</a></h4>",
                         "<h4><i class = 'material-icons'>delete</i> <a href='/music/delete_album.php?username=",$_GET['username'],"&album=",$r['album_title'],"'>Delete Album</a></h4>",
                         "<h4><i class = 'material-icons'>share</i> <a href='/music/all_users.php?username=",$_GET['username'],"&album=",$r['album_title'],"'>Share Album</a></h4>",
@@ -137,10 +141,10 @@ catch(PDOException $e){
     <!-- Shared albums -->
     <div class="row">
         <div class="col-sm-12">
-            <h3>Shared Albums</h3>
+            <h3>Recieved Albums</h3>
         </div>
     
-        <!-- Fetch shared albums -->
+        <!-- Fetch recieved albums -->
         <div class="col-sm-12" style="font-size: 10px">
         <?php
 
