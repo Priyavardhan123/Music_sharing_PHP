@@ -28,6 +28,15 @@ create table Songs (
 create table Shared_Albums ( 
     Owner VARCHAR(30),
     Reciever VARCHAR(30),
-    album_title VARCHAR(250)
+    album_title VARCHAR(250),
+    FOREIGN KEY (album_title) REFERENCES Albums(album_title)
     );
 
+-- create follower table
+CREATE TABLE Follower ( 
+    follower VARCHAR(200) NOT NULL ,
+    followee VARCHAR(200) NOT NULL ,
+    created_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (follower) REFERENCES Users(username),
+    FOREIGN KEY (followee) REFERENCES Users(username)
+    );

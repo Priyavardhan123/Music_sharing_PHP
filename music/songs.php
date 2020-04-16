@@ -147,7 +147,7 @@
                                         echo "<td><audio controls>
                                                     <source src='/music/uploads/$r[audio_file]' type='audio/mpeg'>",".mp3</audio><br></td>";
                                         
-                                        if ( !isset($_GET['reciever']) )
+                                        if ( !isset($_GET['reciever']) && !isset($_GET['is_public']) )
                                         {
                                             echo "<td> 
                                             <form action='/music/delete_song.php?album=",$_GET['album'],"&song_title=",$r['song_title'],"&username=",$_GET['username'],"' method='post' style='display: inline;'>

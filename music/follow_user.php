@@ -54,6 +54,11 @@ if( !isset($_SESSION['username']) )
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
+                <li class="active">
+                    <a href="/music/follow_user.php?username=<?php echo $_SESSION['username'] ?>">
+                        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp; Follow Users
+                    </a>
+                </li>                
                 <li>
                     <a href="/users/logout.php">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
@@ -74,12 +79,7 @@ if( !isset($_SESSION['username']) )
             <thead>
             <tr>
                 <th>
-                <!-- <nav class="navbar navbar-light bg-light justify-content-between">    -->
-                <h3>Users</h3>
-                    <!-- <form class="form-inline" style="text-align:right;">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    </form> -->
-                <!-- </nav> -->
+                    <h3>Follow Users</h3>
                 </th>
             </tr>
             </thead>
@@ -88,18 +88,18 @@ if( !isset($_SESSION['username']) )
                 <td>
                 <?php
                     try{                        
-                        $query=$dbhandler->query("select username from Users WHERE username NOT IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]')");
-                        echo "<form action='share.php?owner=$_GET[username]&album=$_GET[album]' method='post'>";
+                        $query=$dbhandler->query("select username from Users WHERE username NOT IN (select followee from Follower WHERE follower='$_GET[username]')");
+                        echo "<form action='add_follow_users.php?follower=$_GET[username]' method='post'>";
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {
                             if ( $r['username'] != $_GET['username'] )
                             {
                                 echo "<tr>";
-                                echo "<td><input type='checkbox' name='$r[username]' value='share'> " . $r['username'] .  '</br></td>';
+                                echo "<td><input type='checkbox' name='$r[username]' value='follow'> " . $r['username'] .  '</br></td>';
                                 echo "</tr>";
                             }
                         }
-                        echo "<td><input class='btn btn-info' type='submit' name='submit' value='Share'/></td></form>";
+                        echo "<td><input class='btn btn-info' type='submit' name='submit' value='Follow'/></td></form>";
                     }
                     catch(PDOException $e){
                         echo $e->getMessage();
@@ -115,12 +115,7 @@ if( !isset($_SESSION['username']) )
             <thead>
             <tr>
                 <th>
-                <!-- <nav class="navbar navbar-light bg-light justify-content-between">    -->
-                <h3>Shared Users</h3>
-                    <!-- <form class="form-inline" style="text-align:right;">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    </form> -->
-                <!-- </nav> -->
+                    <h3>Unfollow Users</h3>
                 </th>
             </tr>
             </thead>
@@ -129,19 +124,19 @@ if( !isset($_SESSION['username']) )
                 <td>
                 <?php
                     try{                        
-                        $query=$dbhandler->query("select username from Users WHERE username IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]')");
-                        echo "<form method='post' action='delete_shared_album.php?username=$_GET[username]&album=$_GET[album]'>";
+                        $query=$dbhandler->query("select username from Users WHERE username IN (select followee from Follower WHERE follower='$_GET[username]')");
+                        echo "<form method='post' action='delete_follow_users.php?follower=$_GET[username]'>";
                         $rows=0;
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {
                             if ( $r['username'] != $_GET['username'] )   
                             {
                                 echo "<tr>";
-                                echo "<td><input type='checkbox' name='$r[username]' value='unshare'> " . $r['username'] .  '</br></td>';
+                                echo "<td><input type='checkbox' name='$r[username]' value='unfollow'> " . $r['username'] .  '</br></td>';
                                 echo "</tr>";
                             }
                         }
-                        echo "<td><input class='btn btn-info' type='submit' name='submit' value='Unshare'/></td></form>";
+                        echo "<td><input class='btn btn-info' type='submit' name='submit' value='Unfollow'/></td></form>";
                     }
                     catch(PDOException $e){
                         echo $e->getMessage();

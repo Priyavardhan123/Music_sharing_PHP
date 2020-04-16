@@ -70,6 +70,11 @@ catch(PDOException $e){
             
             <ul class="nav navbar-nav navbar-right">
                 <li>
+                    <a href="/music/follow_user.php?username=<?php echo $_SESSION['username'] ?>">
+                        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp; Follow Users
+                    </a>
+                </li>
+                <li>
                     <a href="/users/logout.php">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
                     </a>
@@ -111,10 +116,10 @@ catch(PDOException $e){
                             echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='Private' data-placement='top' >lock</i></a>";
                         else if ( $r[is_private]==0 )
                             echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='Public' data-placement='top' >group</i></a>";
-                        echo "<h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br>",
-                        "<h4><i class = 'material-icons'>remove_red_eye</i> <a href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"'>View Album</a></h4>",
-                        "<h4><i class = 'material-icons'>delete</i> <a href='/music/delete_album.php?username=",$_GET['username'],"&album=",$r['album_title'],"'>Delete Album</a></h4>",
-                        "<h4><i class = 'material-icons'>share</i> <a href='/music/all_users.php?username=",$_GET['username'],"&album=",$r['album_title'],"'>Share Album</a></h4>",
+                        echo "<h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
+                        "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
+                        "<a style='text-decoration:none' href='/music/delete_album.php?username=",$_GET['username'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='Delete Album' data-placement='top'>delete</i></a>",
+                        "<a style='text-decoration:none' href='/music/all_users.php?username=",$_GET['username'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='Share Album' data-placement='top'>share</i></a>",
                         "</pre>"; 
                         echo "</div>";
                     }
@@ -138,10 +143,47 @@ catch(PDOException $e){
         
     </div>
     <hr>
-    <!-- Shared albums -->
+    <!--Other Public Albums -->
     <div class="row">
         <div class="col-sm-12">
-            <h3>Recieved Albums</h3>
+            <h3>Public Albums</h3>
+        </div>
+    
+        <!-- Fetch albums -->
+        <?php
+
+            try{
+                $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
+            
+                $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+                $query=$dbhandler->query('select * from Albums');
+                
+                while($r=$query->fetch(PDO::FETCH_ASSOC))
+                {
+                    if ( $r['is_private'] == 0 && $r['username']!=$_SESSION['username'] )
+                    {
+                        echo "<div class='col-sm-2' style='font-size: 10px'>";
+                        echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
+                        "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"&is_public=yes'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
+                        "<h4>Owner: $r[username] </h4>",
+                        "</pre>"; 
+                        echo "</div>";
+                    }
+                }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                die();
+            }
+
+        ?>
+        
+    </div> 
+    <hr>
+    <!-- Recieved albums which are private -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Recieved/Friends Albums</h3>
         </div>
     
         <!-- Fetch recieved albums -->
@@ -157,12 +199,12 @@ catch(PDOException $e){
                 while($r=$query->fetch(PDO::FETCH_ASSOC))
                 {
                     
-                    if ( $r['Reciever'] == $_GET['username'] )
+                    if ( $r['Reciever'] == $_GET['username'] && $r[is_private]==1 )
                     {
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
-                        echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br>",
-                        "<h4><i class = 'material-icons'>remove_red_eye</i> <a href='/music/songs.php?username=",$_GET['username'],"&reciever=",$r['Reciever'],"&album=",$r['album_title'],"'>View Album</a></h4>",
-                        "<h4><i class = 'material-icons'>remove_red_eye</i> <a href='/music/delete_shared_album.php?username=",$_GET['username'],"&reciever=",$r['Reciever'],"&album=",$r['album_title'],"'>Remove Album</a></h4>",
+                        echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
+                        "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&reciever=",$r['Reciever'],"&album=",$r['album_title'],"'><i class = 'material-icons btn' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a></h4>",
+                        "<a style='text-decoration:none' href='/music/delete_shared_album.php?username=",$_GET['username'],"&reciever=",$r['Reciever'],"&album=",$r['album_title'],"'><i class = 'material-icons btn' data-toggle='tool-tip' title='Remove Album' data-placement='top'>delete</i> </a></h4>",
                         "<h4>Shared by: $r[Owner]</h4>",
                         "</pre>"; 
                         echo "</div>";
@@ -176,9 +218,9 @@ catch(PDOException $e){
             }
 
         ?>
-        
-    </div>    
-
+    </div>
+    <hr>
+    
 </div>
 
 </body>

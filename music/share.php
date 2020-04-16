@@ -23,7 +23,7 @@ try{
             $query=$dbhandler->query($sql);
         } 
     }
-    header("Location:/music/albums.php?username=$_GET[owner]&album=$_GET[album]");    
+    header("Location:/music/all_users.php?username=$_GET[owner]&album=$_GET[album]");    
 }
 catch(PDOException $e){
 	echo $e->getMessage();
