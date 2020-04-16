@@ -108,9 +108,9 @@ catch(PDOException $e){
                     {
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
                         if ( $r[is_private]==1 )
-                            echo "<pre><i class = 'material-icons'>lock</i>";
+                            echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='Private' data-placement='top' >lock</i></a>";
                         else if ( $r[is_private]==0 )
-                            echo "<pre><i class = 'material-icons'>group</i>";
+                            echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='Public' data-placement='top' >group</i></a>";
                         echo "<h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br>",
                         "<h4><i class = 'material-icons'>remove_red_eye</i> <a href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"'>View Album</a></h4>",
                         "<h4><i class = 'material-icons'>delete</i> <a href='/music/delete_album.php?username=",$_GET['username'],"&album=",$r['album_title'],"'>Delete Album</a></h4>",
