@@ -113,13 +113,13 @@ catch(PDOException $e){
                     {
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
                         if ( $r[is_private]==1 )
-                            echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='Private' data-placement='top' >lock</i></a>";
+                            echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Private' data-placement='top' >lock</i></a>";
                         else if ( $r[is_private]==0 )
-                            echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='Public' data-placement='top' >group</i></a>";
+                            echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Public' data-placement='top' >group</i></a>";
                         echo "<h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
-                        "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
-                        "<a style='text-decoration:none' href='/music/delete_album.php?username=",$_GET['username'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='Delete Album' data-placement='top'>delete</i></a>",
-                        "<a style='text-decoration:none' href='/music/all_users.php?username=",$_GET['username'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='Share Album' data-placement='top'>share</i></a>",
+                        "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
+                        "<a style='text-decoration:none' href='/music/delete_album.php?username=",$_GET['username'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Delete Album' data-placement='top'>delete</i></a>",
+                        "<a style='text-decoration:none' href='/music/all_users.php?username=",$_GET['username'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Share Album' data-placement='top'>share</i></a>",
                         "</pre>"; 
                         echo "</div>";
                     }
@@ -164,7 +164,7 @@ catch(PDOException $e){
                     {
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
                         echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
-                        "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"&is_public=yes'><i class = 'material-icons btn btn-secondary' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
+                        "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"&is_public=yes'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
                         "<h4>Owner: $r[username] </h4>",
                         "</pre>"; 
                         echo "</div>";
