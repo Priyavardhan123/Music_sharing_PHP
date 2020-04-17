@@ -1,6 +1,5 @@
 <?php
     session_start();
-    $_SESSION['album'] = $_GET['album'];
     if( !isset($_SESSION['username']) )
         header("Location:/users/login.php");
     try{
@@ -22,8 +21,8 @@
     <title>Add Song to <?php
                     if ( isset($_GET['album']))
                         echo "$_GET[album]"; 
-                    else
-                        header("Location:/users/login.php");
+                    // else
+                        // header("Location:/users/login.php");
                 ?>
     </title>    
     <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>

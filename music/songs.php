@@ -2,6 +2,7 @@
     session_start();
     if( !isset($_SESSION['username']) )
         header("Location:/users/login.php");
+    $_SESSION['album']=$_GET[album];
     try{
         $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
     
@@ -110,9 +111,9 @@
         <div class="col-sm-8 col-md-9">
 
             <ul class="nav nav-pills" style="margin-bottom: 10px;">
-                <li role="presentation" class="active"><a href="/music/songs.php?album=<?php echo $_GET['album']?>">View All</a></li>
+                <li role="presentation" class="active"><a href="/music/songs.php?username=<?php echo $_SESSION['username']?>&album=<?php echo $_GET['album']?>">View All</a></li>
                 <?php if ( !isset($_GET['reciever']) && !isset($_GET['is_public']) )
-                    echo "<li role='presentation'><a href='/music/create_song.php?username=',$_GET[username],'&album=',$_GET[album]'>Add New Song</a></li>";
+                    echo "<li role='presentation'><a href='/music/create_song.php?username=",$_GET['username'],"&album=",$_GET[album],"'>Add New Song</a></li>";
                 ?>
             </ul>
 
