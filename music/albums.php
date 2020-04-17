@@ -143,13 +143,95 @@ catch(PDOException $e){
         
     </div>
     <hr>
-    <!--Other Public Albums -->
+    <!--Recieved albums which are private -->
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Recieved Albums</h3>
+        </div>
+        <?php
+
+            try{
+                $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
+            
+                $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+                $query=$dbhandler->query('select * from Albums natural join Shared_Albums');
+                
+                while($r=$query->fetch(PDO::FETCH_ASSOC))
+                {
+                    
+                    if ( $r['Reciever'] == $_GET['username'] && $r[is_private]==1 )
+                    {
+                        echo "<div class='col-sm-2' style='font-size: 10px'>";
+                        echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
+                        "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&reciever=",$r['Reciever'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a></h4>",
+                        "<a style='text-decoration:none' href='/music/delete_shared_album.php?username=",$_GET['username'],"&reciever=",$r['Reciever'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Remove Album' data-placement='top'>delete</i> </a></h4>",
+                        "<h4>Shared by: $r[Owner]</h4>",
+                        "</pre>"; 
+                        echo "</div>";
+                    }
+                   
+                }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                die();
+            }
+
+        ?>
+        
+        
+    </div>
+    <hr>
+
+    <!--Friend's albums-->
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Friend's Albums</h3>
+        </div>
+        <?php
+
+            try{
+                $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
+            
+                $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+                $query=$dbhandler->query("select followee FROM Follower WHERE follower='$_GET[username]'");
+                // $r1=$query1->fetch(PDO::FETCH_ASSOC);
+
+                while($r=$query->fetch(PDO::FETCH_ASSOC))
+                {
+                    $followee = $r[followee];
+                    $query1=$dbhandler->query('select * from Albums');
+                    while($r1=$query1->fetch(PDO::FETCH_ASSOC))
+                    {
+                        if( $followee==$r1[username] )
+                        {
+                            echo "<div class='col-sm-2' style='font-size: 10px'>";
+                            echo "<pre><h3>",$r1['album_title'],"</h3>",$r1['artist'],"<br>",$r1['genre'],"<br><br>",
+                            "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r1['album_title'],"&is_public=yes'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
+                            "<h4>Owner: ",$followee,"</h4>",
+                            "</pre>"; 
+                            echo "</div>";
+                        }
+                    }
+                }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                die();
+            }
+
+        ?>
+        
+        
+    </div> 
+    <hr>
     <div class="row">
         <div class="col-sm-12">
             <h3>Public Albums</h3>
         </div>
     
-        <!-- Fetch albums -->
+        <!--Other Public Albums -->
         <?php
 
             try{
@@ -169,47 +251,6 @@ catch(PDOException $e){
                         "</pre>"; 
                         echo "</div>";
                     }
-                }
-            }
-            catch(PDOException $e){
-                echo $e->getMessage();
-                die();
-            }
-
-        ?>
-        
-    </div> 
-    <hr>
-    <!-- Recieved albums which are private -->
-    <div class="row">
-        <div class="col-sm-12">
-            <h3>Recieved/Friends Albums</h3>
-        </div>
-    
-        <!-- Fetch recieved albums -->
-        <div class="col-sm-12" style="font-size: 10px">
-        <?php
-
-            try{
-                $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
-            
-                $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                $query=$dbhandler->query('select * from Albums natural join Shared_Albums');
-                
-                while($r=$query->fetch(PDO::FETCH_ASSOC))
-                {
-                    
-                    if ( $r['Reciever'] == $_GET['username'] && $r[is_private]==1 )
-                    {
-                        echo "<div class='col-sm-2' style='font-size: 10px'>";
-                        echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
-                        "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&reciever=",$r['Reciever'],"&album=",$r['album_title'],"'><i class = 'material-icons btn' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a></h4>",
-                        "<a style='text-decoration:none' href='/music/delete_shared_album.php?username=",$_GET['username'],"&reciever=",$r['Reciever'],"&album=",$r['album_title'],"'><i class = 'material-icons btn' data-toggle='tool-tip' title='Remove Album' data-placement='top'>delete</i> </a></h4>",
-                        "<h4>Shared by: $r[Owner]</h4>",
-                        "</pre>"; 
-                        echo "</div>";
-                    }
-                   
                 }
             }
             catch(PDOException $e){
