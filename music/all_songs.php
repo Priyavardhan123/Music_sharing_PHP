@@ -31,7 +31,7 @@ if( !isset($_SESSION['username']) )
     <style>
         body {
           background-image: url("images/background.jpg");
-          background-size: cover;
+          background-size: contain;
         }
     </style>
 </head>
@@ -52,6 +52,16 @@ if( !isset($_SESSION['username']) )
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/music/follow_user.php?username=<?php echo $_SESSION['username'] ?>">
+                        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp; Follow Users
+                    </a>
+                </li>
+                <li>
+                    <a href="/music/my_profile.php?username=<?php echo $_SESSION['username'] ?>">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; My Profile
+                    </a>
+                </li>  
                 <li>
                     <a href="/users/logout.php">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout

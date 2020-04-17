@@ -2,17 +2,15 @@
 session_start();
 if( !isset($_SESSION['username']) )
     header("Location:/users/login.php");
-    try{
-        $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
+try{
+    $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
+    $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
     
-        $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-    }
-    catch(PDOException $e){
-        echo $e->getMessage();
-        die();
-    }
-
-
+}
+catch(PDOException $e){
+    echo $e->getMessage();
+    die();
+}
 ?>
 
 <!DOCTYPE html>
@@ -54,16 +52,6 @@ if( !isset($_SESSION['username']) )
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
-                <li class="active">
-                    <a href="/music/follow_user.php?username=<?php echo $_SESSION['username'] ?>">
-                        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp; Follow Users
-                    </a>
-                </li>
-                <li>
-                    <a href="/music/my_profile.php?username=<?php echo $_SESSION['username'] ?>">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; My Profile
-                    </a>
-                </li>             
                 <li>
                     <a href="/users/logout.php">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
@@ -84,27 +72,39 @@ if( !isset($_SESSION['username']) )
             <thead>
             <tr>
                 <th>
-                    <h3>Follow Users</h3>
+                <h3>Users</h3>
                 </th>
+                <th>
+                <nav class="navbar navbar-light bg-light justify-content-between">   
+                <th>
+                    <form action="search.php?username=<?php echo $_GET[username]; ?>&album=<?php echo $_GET[album]; ?>" method="post" class="form-inline" style="text-align:right;">
+                        <input name="search_string" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    </form>
+                </th>
+                </nav>
+                </th>
+
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>
+                <td colspan=3>
                 <?php
-                    try{                        
-                        $query=$dbhandler->query("select username from Users WHERE username NOT IN (select followee from Follower WHERE follower='$_GET[username]')");
-                        echo "<form action='add_follow_users.php?follower=$_GET[username]' method='post'>";
-                        while($r=$query->fetch(PDO::FETCH_ASSOC))
+                    try{
+                        
+                        $sql=$dbhandler->query("select username from Users WHERE username NOT IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]') and username LIKE '%$_POST[search_string]%'");
+                        
+                        echo "<form action='share.php?owner=$_GET[username]&album=$_GET[album]' method='post'>";
+                        while($r=$sql->fetch(PDO::FETCH_ASSOC))
                         {
                             if ( $r['username'] != $_GET['username'] )
                             {
                                 echo "<tr>";
-                                echo "<td><input type='checkbox' name='$r[username]' value='follow'> " . $r['username'] .  '</br></td>';
+                                echo "<td colspan=3><input type='checkbox' name='$r[username]' value='share'> " . $r['username'] .  '</br></td>';
                                 echo "</tr>";
                             }
                         }
-                        echo "<td><input class='btn btn-info' type='submit' name='submit' value='Follow'/></td></form>";
+                        echo "<td><input class='btn btn-info' type='submit' name='submit' value='Share'/></td></form>";
                     }
                     catch(PDOException $e){
                         echo $e->getMessage();
@@ -120,28 +120,31 @@ if( !isset($_SESSION['username']) )
             <thead>
             <tr>
                 <th>
-                    <h3>Unfollow Users</h3>
+                <h3>Shared Users</h3>
                 </th>
+                
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>
+                <td colspan=3>
                 <?php
-                    try{                        
-                        $query=$dbhandler->query("select username from Users WHERE username IN (select followee from Follower WHERE follower='$_GET[username]')");
-                        echo "<form method='post' action='delete_follow_users.php?follower=$_GET[username]'>";
+                    try{
+                        
+                        $sql=$dbhandler->query("select username from Users WHERE username IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]') and username LIKE '%$_POST[search_string]%'");
+
+                        echo "<form method='post' action='delete_shared_album.php?username=$_GET[username]&album=$_GET[album]'>";
                         $rows=0;
-                        while($r=$query->fetch(PDO::FETCH_ASSOC))
+                        while($r=$sql->fetch(PDO::FETCH_ASSOC))
                         {
                             if ( $r['username'] != $_GET['username'] )   
                             {
                                 echo "<tr>";
-                                echo "<td><input type='checkbox' name='$r[username]' value='unfollow'> " . $r['username'] .  '</br></td>';
+                                echo "<td colspan=3><input type='checkbox' name='$r[username]' value='unshare'> " . $r['username'] .  '</br></td>';
                                 echo "</tr>";
                             }
                         }
-                        echo "<td><input class='btn btn-info' type='submit' name='submit' value='Unfollow'/></td></form>";
+                        echo "<td><input class='btn btn-info' type='submit' name='submit' value='Unshare'/></td></form>";
                     }
                     catch(PDOException $e){
                         echo $e->getMessage();

@@ -44,7 +44,7 @@ catch(PDOException $e){
     <style>
         body {
           background-image: url("images/background.jpg");
-          background-size: cover;
+          background-size: contain;
         }
         .material-icons{
             display: inline-flex;
@@ -72,6 +72,11 @@ catch(PDOException $e){
                 <li>
                     <a href="/music/follow_user.php?username=<?php echo $_SESSION['username'] ?>">
                         <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp; Follow Users
+                    </a>
+                </li>
+                <li>
+                    <a href="/music/my_profile.php?username=<?php echo $_SESSION['username'] ?>">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; My Profile
                     </a>
                 </li>
                 <li>

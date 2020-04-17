@@ -2,17 +2,15 @@
 session_start();
 if( !isset($_SESSION['username']) )
     header("Location:/users/login.php");
-    try{
-        $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
+try{
+    $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
+    $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
     
-        $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-    }
-    catch(PDOException $e){
-        echo $e->getMessage();
-        die();
-    }
-
-
+}
+catch(PDOException $e){
+    echo $e->getMessage();
+    die();
+}
 ?>
 
 <!DOCTYPE html>
@@ -74,18 +72,23 @@ if( !isset($_SESSION['username']) )
             <thead>
             <tr>
                 <th>
-                <!-- <nav class="navbar navbar-light bg-light justify-content-between">    -->
                 <h3>Users</h3>
-                    <!-- <form class="form-inline" style="text-align:right;">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    </form> -->
-                <!-- </nav> -->
                 </th>
+                <th>
+                <nav class="navbar navbar-light bg-light justify-content-between">   
+                <th>
+                    <form action="search.php?username=<?php echo $_GET[username]; ?>&album=<?php echo $_GET[album]; ?>" method="post" class="form-inline" style="text-align:right;">
+                        <input name="search_string" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    </form>
+                </th>
+                </nav>
+                </th>
+
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>
+                <td colspan=3>
                 <?php
                     try{                        
                         $query=$dbhandler->query("select username from Users WHERE username NOT IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]')");
@@ -95,7 +98,7 @@ if( !isset($_SESSION['username']) )
                             if ( $r['username'] != $_GET['username'] )
                             {
                                 echo "<tr>";
-                                echo "<td><input type='checkbox' name='$r[username]' value='share'> " . $r['username'] .  '</br></td>';
+                                echo "<td colspan=3><input type='checkbox' name='$r[username]' value='share'> " . $r['username'] .  '</br></td>';
                                 echo "</tr>";
                             }
                         }
@@ -115,18 +118,14 @@ if( !isset($_SESSION['username']) )
             <thead>
             <tr>
                 <th>
-                <!-- <nav class="navbar navbar-light bg-light justify-content-between">    -->
                 <h3>Shared Users</h3>
-                    <!-- <form class="form-inline" style="text-align:right;">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    </form> -->
-                <!-- </nav> -->
                 </th>
+                
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>
+                <td colspan=3>
                 <?php
                     try{                        
                         $query=$dbhandler->query("select username from Users WHERE username IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]')");
@@ -137,7 +136,7 @@ if( !isset($_SESSION['username']) )
                             if ( $r['username'] != $_GET['username'] )   
                             {
                                 echo "<tr>";
-                                echo "<td><input type='checkbox' name='$r[username]' value='unshare'> " . $r['username'] .  '</br></td>';
+                                echo "<td colspan=3><input type='checkbox' name='$r[username]' value='unshare'> " . $r['username'] .  '</br></td>';
                                 echo "</tr>";
                             }
                         }
