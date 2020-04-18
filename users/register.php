@@ -46,7 +46,23 @@
                     <h3>Register for an Account</h3>
                     
         <form class="form-horizontal" role="form" action="register_user.php" method="post">
-                        
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <span class="text-danger small"></span>
+                </div>
+                <label class="control-label col-sm-3"><label for="id_first_name">First Name:</label></label>
+                <div class="col-sm-9"><input type="text" name="First_name" maxlength="150" required id="id_first_name"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <span class="text-danger small"></span>
+                </div>
+                <label class="control-label col-sm-3"><label for="id_last_name">Last Name:</label></label>
+                <div class="col-sm-9"><input type="text" name="Last_name" maxlength="150" required id="id_last_name"></div>
+            </div>
+
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <span class="text-danger small"></span>

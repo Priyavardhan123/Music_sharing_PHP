@@ -112,7 +112,7 @@ if( !isset($_SESSION['username']) )
                             }
                         }
                         if ($rows==1)
-                            echo "<tr><td><input class='btn btn-info' type='submit' name='submit' value='Unfollow'/></td></tr></form>";
+                            echo "<tr><td><input class='btn btn-info' type='submit' name='submit' value='Follow'/></td></tr></form>";
                         else
                             echo "<tr><td>No Users found</td></tr></form>";
                     }

@@ -103,8 +103,8 @@ catch(PDOException $e){
     <div class="row">
         <div class="col-sm-12">
             <h3><?php 
-                    if ( isset($_GET['username']) )    
-                        echo $_GET['username']; 
+                    if ( isset($_SESSION['username']) )    
+                        echo $_SESSION['username']; 
                     else
                         header("Location:/users/login.php");
                 ?>'s Albums</h3>

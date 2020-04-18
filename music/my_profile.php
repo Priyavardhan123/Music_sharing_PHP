@@ -87,6 +87,7 @@ catch(PDOException $e){
                         echo $_SESSION['username'],"'s Profile";
                     ?>
                 </h3>
+                <a href="/music/edit_profile.php">Edit Profile</a> | <a href="/music/albums.php?username=<?php echo $_SESSION['username']; ?>">Home</a>
                 </th>
             </tr>
             </thead>
@@ -98,6 +99,12 @@ catch(PDOException $e){
                         $query=$dbhandler->query("select * from Users WHERE username='$_SESSION[username]'");
                         $r=$query->fetch(PDO::FETCH_ASSOC);
 
+                        echo "<tr>";
+                        echo "<td colspan=2><b>First Name:</b> ", $r[First_name]  ,"</br></td>";
+                        echo "</tr>";
+                        echo "<tr>";
+                        echo "<td colspan=2><b>Last Name:</b> ", $r[Last_name]  ,"</br></td>";
+                        echo "</tr>";
                         echo "<tr>";
                         echo "<td colspan=2><b>Username:</b> ", $r[username]  ,"</br></td>";
                         echo "</tr>";
