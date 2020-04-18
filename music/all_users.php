@@ -77,7 +77,7 @@ catch(PDOException $e){
                 <th>
                 <nav class="navbar navbar-light bg-light justify-content-between">   
                 <th>
-                    <form action="search.php?username=<?php echo $_GET[username]; ?>&album=<?php echo $_GET[album]; ?>" method="post" class="form-inline" style="text-align:right;">
+                    <form action="all_users.php?username=<?php echo $_GET[username]; ?>&album=<?php echo $_GET[album]; ?>" method="post" class="form-inline" style="text-align:right;">
                         <input name="search_string" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     </form>
                 </th>
@@ -90,8 +90,8 @@ catch(PDOException $e){
             <tr>
                 <td colspan=3>
                 <?php
-                    try{                        
-                        $query=$dbhandler->query("select username from Users WHERE username NOT IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]')");
+                    try{            
+                        $query=$dbhandler->query("select username from Users WHERE username NOT IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]') and username LIKE '%$_POST[search_string]%'");
                         echo "<form action='share.php?owner=$_GET[username]&album=$_GET[album]' method='post'>";
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {
@@ -128,7 +128,7 @@ catch(PDOException $e){
                 <td colspan=3>
                 <?php
                     try{                        
-                        $query=$dbhandler->query("select username from Users WHERE username IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]')");
+                        $query=$dbhandler->query("select username from Users WHERE username IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]') and username LIKE '%$_POST[search_string]%'");
                         echo "<form method='post' action='delete_shared_album.php?username=$_GET[username]&album=$_GET[album]'>";
                         $rows=0;
                         while($r=$query->fetch(PDO::FETCH_ASSOC))

@@ -2,17 +2,14 @@
 session_start();
 if( !isset($_SESSION['username']) )
     header("Location:/users/login.php");
-    try{
-        $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
-    
-        $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-    }
-    catch(PDOException $e){
-        echo $e->getMessage();
-        die();
-    }
-
-
+try{
+    $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
+    $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+}
+catch(PDOException $e){
+    echo $e->getMessage();
+    die();
+}
 ?>
 
 <!DOCTYPE html>
@@ -285,7 +282,7 @@ if( !isset($_SESSION['username']) )
                         }
                         
                         echo "<tr>";
-                        echo "<td colspan=2><h4>Recieved Albums: ", $recieved  ,"</br><h4></td>";
+                        echo "<td colspan=2><h4>Received Albums: ", $recieved  ,"</br><h4></td>";
                         echo "</tr>";
 
                         $query=$dbhandler->query("select DISTINCT album_title from Shared_Albums WHERE Reciever='$_SESSION[username]'");

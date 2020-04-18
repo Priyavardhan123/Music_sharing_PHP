@@ -148,11 +148,11 @@ catch(PDOException $e){
         
     </div>
     <hr>
-    <!--Recieved albums which are private -->
+    <!--Received albums which are private -->
 
     <div class="row">
         <div class="col-sm-12">
-            <h3>Recieved Albums</h3>
+            <h3>Received Albums</h3>
         </div>
         <?php
 
