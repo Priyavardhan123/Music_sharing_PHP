@@ -60,12 +60,12 @@ if( !isset($_SESSION['username']) )
             
             <ul class="nav navbar-nav navbar-right">
                 <li class="active">
-                    <a href="/music/follow_user.php?username=<?php echo $_SESSION['username'] ?>">
+                    <a href="/users/follow_user.php?username=<?php echo $_SESSION['username'] ?>">
                         <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp; Follow Users
                     </a>
                 </li>
                 <li>
-                    <a href="/music/my_profile.php?username=<?php echo $_SESSION['username'] ?>">
+                    <a href="/users/my_profile.php?username=<?php echo $_SESSION['username'] ?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; My Profile
                     </a>
                 </li>             
@@ -99,7 +99,7 @@ if( !isset($_SESSION['username']) )
                 <?php
                     try{                        
                         $query=$dbhandler->query("select username from Users WHERE username NOT IN (select followee from Follower WHERE follower='$_GET[username]') and username LIKE '%$_POST[search_string]%'");
-                        echo "<form action='add_follow_users.php?follower=$_GET[username]' method='post'>";
+                        echo "<form action='/users/add_follow_users.php?follower=$_GET[username]' method='post'>";
                         $rows=0;
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {
@@ -140,7 +140,7 @@ if( !isset($_SESSION['username']) )
                 <?php
                     try{                        
                         $query=$dbhandler->query("select username from Users WHERE username IN (select followee from Follower WHERE follower='$_GET[username]') and username LIKE '%$_POST[search_string]%'");
-                        echo "<form method='post' action='delete_follow_users.php?follower=$_GET[username]'>";
+                        echo "<form method='post' action='/users/delete_follow_users.php?follower=$_GET[username]'>";
                         $rows=0;
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {

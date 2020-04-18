@@ -15,7 +15,7 @@ try{
         } 
     }
 		
-	header("Location:/music/follow_user.php?username=$_GET[follower]");
+	header("Location:/users/follow_user.php?username=$_GET[follower]");
 }
 catch(PDOException $e){
 	echo $e->getMessage();

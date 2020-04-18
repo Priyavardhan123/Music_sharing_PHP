@@ -53,12 +53,12 @@
             
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="/music/follow_user.php?username=<?php echo $_SESSION['username'] ?>">
+                    <a href="/users/follow_user.php?username=<?php echo $_SESSION['username'] ?>">
                         <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp; Follow Users
                     </a>
                 </li>
                 <li class="active">
-                    <a href="/music/my_profile.php?username=<?php echo $_SESSION['username'] ?>">
+                    <a href="/users/my_profile.php?username=<?php echo $_SESSION['username'] ?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; My Profile
                     </a>
                 </li>
@@ -77,7 +77,7 @@
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <form method="post" action="/music/update_profile.php">
+        <form method="post" action="/users/update_profile.php">
         <table  class="table">
             <thead>
             <tr>
@@ -87,7 +87,7 @@
                         echo $_SESSION['username'],"'s Profile";
                     ?>
                 </h3>
-                <a href="/music/my_profile.php">Back to Profile</a>
+                <a href="/users/my_profile.php">Back to Profile</a>
                 </th>
             </tr>
             </thead>

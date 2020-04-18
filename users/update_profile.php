@@ -4,7 +4,7 @@ if( !isset($_SESSION['username']) )
     header("Location:/users/login.php");
 
 if ( $_POST[Password] != $_POST[conPassword] )
-    header("Location:/music/edit_profile.php?msg=Password do not match");
+    header("Location:/users/edit_profile.php?msg=Password do not match");
 else
 {
     try
