@@ -17,14 +17,16 @@ try{
 				$query=$dbhandler->query($sql);
 			} 
 		}
+		header("Location:/music/all_users.php?username=$_GET[username]&album=$_GET[album]");
 	}
 
 	else 
 	{	
 		$sql="delete from Shared_Albums where album_title='$_GET[album]' and Reciever='$_GET[reciever]'";
     	$query=$dbhandler->query($sql);
+		header("Location:/music/albums.php?username=$_GET[username]");
 	}	
-	header("Location:/music/all_users.php?username=$_GET[username]&album=$_GET[album]");
+
 }
 catch(PDOException $e){
 	echo $e->getMessage();

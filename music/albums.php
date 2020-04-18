@@ -64,8 +64,15 @@ catch(PDOException $e){
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums</a></li>
+                <li class="active"><a href="/music/albums.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums</a></li>
                 <li class=""><a href="/music/all_songs.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs</a></li>
+                <li>
+                    <form class="navbar-form navbar-left" role="search" method="post" action="/music/albums.php?username=<?php echo $_GET[username]; ?>">
+                        <div class="form-group">
+                            <input type="search" class="form-control" name="search_text" placeholder="Search" aria-label="Search" value="<?php echo $_POST[search_text]; ?>">
+                        </div>
+                    </form>
+                </li>
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
@@ -110,12 +117,16 @@ catch(PDOException $e){
                 $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
             
                 $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                $query=$dbhandler->query('select * from Albums');
+                $query=$dbhandler->query("SELECT * FROM Albums WHERE album_title LIKE '%$_POST[search_text]%' OR
+                                                                     artist LIKE '%$_POST[search_text]%' OR 
+                                                                     genre LIKE '%$_POST[search_text]%' ");
                 
+                $flag=0;
                 while($r=$query->fetch(PDO::FETCH_ASSOC))
                 {
                     if ( $r['username'] == $_GET['username'] )
                     {
+                        $flag=1;
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
                         if ( $r[is_private]==1 )
                             echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Private' data-placement='top' >lock</i></a>";
@@ -128,6 +139,11 @@ catch(PDOException $e){
                         "</pre>"; 
                         echo "</div>";
                     }
+                }
+                if ($flag==0)
+                {
+                    echo "<div class='col-sm-2' style='font-size: 15px'>";
+                    echo "No Albums Found</div>";
                 }
             }
             catch(PDOException $e){
@@ -160,13 +176,15 @@ catch(PDOException $e){
                 $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
             
                 $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                $query=$dbhandler->query('select * from Albums natural join Shared_Albums');
-                
+                $query=$dbhandler->query("select * from Albums natural join Shared_Albums WHERE album_title LIKE '%$_POST[search_text]%' OR
+                                                                                                artist LIKE '%$_POST[search_text]%' OR 
+                                                                                                genre LIKE '%$_POST[search_text]%' ");
+                $flag=0;
                 while($r=$query->fetch(PDO::FETCH_ASSOC))
                 {
-                    
                     if ( $r['Reciever'] == $_GET['username'] && $r[is_private]==1 )
                     {
+                        $flag=1;
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
                         echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
                         "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&reciever=",$r['Reciever'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a></h4>",
@@ -176,6 +194,11 @@ catch(PDOException $e){
                         echo "</div>";
                     }
                    
+                }
+                if ($flag==0)
+                {
+                    echo "<div class='col-sm-2' style='font-size: 15px'>";
+                    echo "No Albums Found</div>";
                 }
             }
             catch(PDOException $e){
@@ -200,17 +223,20 @@ catch(PDOException $e){
                 $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
             
                 $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                $query=$dbhandler->query("select followee FROM Follower WHERE follower='$_GET[username]'");
-                // $r1=$query1->fetch(PDO::FETCH_ASSOC);
+                $query=$dbhandler->query("SELECT followee FROM Follower WHERE follower='$_GET[username]'");
 
+                $flag=0;
                 while($r=$query->fetch(PDO::FETCH_ASSOC))
                 {
                     $followee = $r[followee];
-                    $query1=$dbhandler->query('select * from Albums');
+                    $query1=$dbhandler->query("SELECT * FROM Albums WHERE album_title LIKE '%$_POST[search_text]%' OR
+                                                                          artist LIKE '%$_POST[search_text]%' OR 
+                                                                          genre LIKE '%$_POST[search_text]%' ");
                     while($r1=$query1->fetch(PDO::FETCH_ASSOC))
                     {
                         if( $followee==$r1[username] )
                         {
+                            $flag=1;
                             echo "<div class='col-sm-2' style='font-size: 10px'>";
                             echo "<pre><h3>",$r1['album_title'],"</h3>",$r1['artist'],"<br>",$r1['genre'],"<br><br>",
                             "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r1['album_title'],"&is_public=yes'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
@@ -219,6 +245,11 @@ catch(PDOException $e){
                             echo "</div>";
                         }
                     }
+                }
+                if ($flag==0)
+                {
+                    echo "<div class='col-sm-2' style='font-size: 15px'>";
+                    echo "No Albums Found</div>";
                 }
             }
             catch(PDOException $e){
@@ -243,12 +274,15 @@ catch(PDOException $e){
                 $dbhandler = new PDO('mysql:host=127.0.0.1;dbname=phpmyadmin','phpmyadmin','pkp010900');
             
                 $dbhandler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                $query=$dbhandler->query('select * from Albums');
-                
+                $query=$dbhandler->query("SELECT * FROM Albums WHERE album_title LIKE '%$_POST[search_text]%' OR
+                                                                     artist LIKE '%$_POST[search_text]%' OR 
+                                                                     genre LIKE '%$_POST[search_text]%' ");
+                $flag=0;
                 while($r=$query->fetch(PDO::FETCH_ASSOC))
                 {
                     if ( $r['is_private'] == 0 && $r['username']!=$_SESSION['username'] )
                     {
+                        $flag=1;
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
                         echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
                         "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"&is_public=yes'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
@@ -256,6 +290,11 @@ catch(PDOException $e){
                         "</pre>"; 
                         echo "</div>";
                     }
+                }
+                if ($flag==0)
+                {
+                    echo "<div class='col-sm-2' style='font-size: 15px'>";
+                    echo "No Albums Found</div>";
                 }
             }
             catch(PDOException $e){

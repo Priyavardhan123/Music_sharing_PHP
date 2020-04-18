@@ -31,7 +31,7 @@ if( !isset($_SESSION['username']) )
     <style>
         body {
           background-image: url("images/background.jpg");
-          background-size: contain;
+          background-size: cover;
         }
     </style>
 </head>
@@ -48,7 +48,12 @@ if( !isset($_SESSION['username']) )
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
                 <li class=""><a href="/music/albums.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums</a></li>
-                <li class="active"><a href="#"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs</a></li>
+                <li class="active"><a href="/music/all_songs.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs</a></li>
+                <li>
+                    <form class="navbar-form navbar-left" role="search" method="post" action="all_songs.php?username=<?php echo $_GET[username]; ?>">
+                            <input name="search_string" value="<?php echo $_POST[search_string]; ?>" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    </form>
+                </li>            
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
@@ -87,7 +92,8 @@ if( !isset($_SESSION['username']) )
         <table class="table">
             <thead>
             <tr>
-                <th>Title</th>
+                <th>Song</th>
+                <th>Album</th>
                 <th>Audio File</th>
             </tr>
             </thead>
@@ -96,19 +102,26 @@ if( !isset($_SESSION['username']) )
                 <td>
             <?php
                 try{
-                    $query=$dbhandler->query('select * from Songs natural join Users');
-                    
+                    $query=$dbhandler->query("SELECT * FROM Songs NATURAL JOIN Users WHERE  album_title LIKE '%$_POST[search_string]%' OR
+                                                                                            song_title LIKE '%$_POST[search_string]%' ");
+                    $flag=0;
                     while($r=$query->fetch(PDO::FETCH_ASSOC))
                     {
                         if ( $r['username'] == $_GET['username'] )
                         {
+                            $flag=1;
                             echo "<tr>";
-                            echo "<td>", $r['song_title'],"<br></td>"; 
+                            echo "<td>", $r['song_title'],"<br></td>";
+                            echo "<td>", $r['album_title'],"<br></td>"; 
                             echo "<td><audio controls>
                                         <source src='/music/uploads/$r[audio_file]' type='audio/mpeg'>",".mp3</audio><br></td>";
                             
-                        }
-                        
+                        }  
+                    }
+                    if ($flag==0)
+                    {
+                        echo "<div class='col-sm-2' style='font-size: 15px'>";
+                        echo "<tr><td colspan=3>No Songs Found</td></tr></div>";
                     }
                 }
                 catch(PDOException $e){

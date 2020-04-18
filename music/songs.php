@@ -129,7 +129,7 @@
                         <tr>
                             <th>Title</th>
                             <th>Audio File</th>
-                            <?php if ( !isset($_GET['reciever']) )
+                            <?php if ( !isset($_GET['reciever']) && !isset($_GET['is_public']) )
                                 echo "<th>Actions</th>";
                             ?>
                         </tr>

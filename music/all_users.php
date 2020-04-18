@@ -49,6 +49,11 @@ catch(PDOException $e){
             <ul class="nav navbar-nav">
                 <li class=""><a href="/music/albums.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums</a></li>
                 <li class=""><a href="/music/all_songs.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs</a></li>
+                <li>
+                    <form class="navbar-form navbar-left" role="search" method="post" action="all_users.php?username=<?php echo $_GET[username]; ?>&album=<?php echo $_GET[album]; ?>">
+                            <input name="search_string" value="<?php echo $_POST[search_string]; ?>" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    </form>
+                </li>
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
@@ -84,16 +89,6 @@ catch(PDOException $e){
                 <th>
                 <h3>Users</h3>
                 </th>
-                <th>
-                <nav class="navbar navbar-light bg-light justify-content-between">   
-                <th>
-                    <form action="all_users.php?username=<?php echo $_GET[username]; ?>&album=<?php echo $_GET[album]; ?>" method="post" class="form-inline" style="text-align:right;">
-                        <input name="search_string" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    </form>
-                </th>
-                </nav>
-                </th>
-
             </tr>
             </thead>
             <tbody>
@@ -103,16 +98,21 @@ catch(PDOException $e){
                     try{            
                         $query=$dbhandler->query("select username from Users WHERE username NOT IN (select Reciever from Shared_Albums WHERE album_title='$_GET[album]') and username LIKE '%$_POST[search_string]%'");
                         echo "<form action='share.php?owner=$_GET[username]&album=$_GET[album]' method='post'>";
+                        $rows=0;
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {
                             if ( $r['username'] != $_GET['username'] )
                             {
+                                $rows=1;
                                 echo "<tr>";
                                 echo "<td colspan=3><input type='checkbox' name='$r[username]' value='share'> " . $r['username'] .  '</br></td>';
                                 echo "</tr>";
                             }
                         }
-                        echo "<td><input class='btn btn-info' type='submit' name='submit' value='Share'/></td></form>";
+                        if ($rows==1)
+                            echo "<tr><td><input class='btn btn-info' type='submit' name='submit' value='Share'/></td></tr></form>";
+                        else
+                            echo "<tr><td>No Users found</td></tr></form>";
                     }
                     catch(PDOException $e){
                         echo $e->getMessage();
@@ -145,12 +145,16 @@ catch(PDOException $e){
                         {
                             if ( $r['username'] != $_GET['username'] )   
                             {
+                                $rows=1;
                                 echo "<tr>";
                                 echo "<td colspan=3><input type='checkbox' name='$r[username]' value='unshare'> " . $r['username'] .  '</br></td>';
                                 echo "</tr>";
                             }
                         }
-                        echo "<td><input class='btn btn-info' type='submit' name='submit' value='Unshare'/></td></form>";
+                        if ($rows==1)
+                            echo "<tr><td><input class='btn btn-info' type='submit' name='submit' value='Unshare'/></td></tr></form>";
+                        else
+                            echo "<tr><td>No Users found</td></tr></form>";
                     }
                     catch(PDOException $e){
                         echo $e->getMessage();
