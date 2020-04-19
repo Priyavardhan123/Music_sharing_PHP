@@ -129,9 +129,17 @@ catch(PDOException $e){
                         $flag=1;
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
                         if ( $r[is_private]==1 )
-                            echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Private' data-placement='top' >lock</i></a>";
+                            echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Private' data-placement='top' >lock</i></a><br><br>";
                         else if ( $r[is_private]==0 )
-                            echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Public' data-placement='top' >group</i></a>";
+                            echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Public' data-placement='top' >group</i></a><br><br>";
+                        
+                        if ($r[imageType]=="image/jpeg")
+                            echo '<img width=170 height=170 src="data:image/jpeg;base64,'.base64_encode( $r['image'] ).'"/>';
+                        else if ($r[imageType]=="image/jpg")
+                            echo '<img width=100 height=170 src="data:image/jpg;base64,'.base64_encode( $r['image'] ).'"/>';
+                        else if ($r[imageType]=="image/png")
+                            echo '<img width=100 height=170 src="data:image/png;base64,'.base64_encode( $r['image'] ).'"/>';
+                        
                         echo "<h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
                         "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
                         "<a style='text-decoration:none' href='/music/delete_album.php?username=",$_GET['username'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Delete Album' data-placement='top'>delete</i></a>",
@@ -186,7 +194,16 @@ catch(PDOException $e){
                     {
                         $flag=1;
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
-                        echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
+                        echo "<pre>";
+                        if ($r[imageType]=="image/jpeg")
+                            echo '<img width=170 height=170 src="data:image/jpeg;base64,'.base64_encode( $r['image'] ).'"/>';
+                        else if ($r[imageType]=="image/jpg")
+                            echo '<img width=100 height=170 src="data:image/jpg;base64,'.base64_encode( $r['image'] ).'"/>';
+                        else if ($r[imageType]=="image/png")
+                            echo '<img width=100 height=170 src="data:image/png;base64,'.base64_encode( $r['image'] ).'"/>';
+                        
+                        
+                        echo "<h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
                         "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&reciever=",$r['Reciever'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a></h4>",
                         "<a style='text-decoration:none' href='/music/delete_shared_album.php?username=",$_GET['username'],"&reciever=",$r['Reciever'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Remove Album' data-placement='top'>delete</i> </a></h4>",
                         "<h4>Shared by: $r[Owner]</h4>",
@@ -237,8 +254,18 @@ catch(PDOException $e){
                         if( $followee==$r1[username] )
                         {
                             $flag=1;
+
                             echo "<div class='col-sm-2' style='font-size: 10px'>";
-                            echo "<pre><h3>",$r1['album_title'],"</h3>",$r1['artist'],"<br>",$r1['genre'],"<br><br>",
+                            echo "<pre>";
+                            if ($r1[imageType]=="image/jpeg")
+                                echo '<img width=170 height=170 src="data:image/jpeg;base64,'.base64_encode( $r1['image'] ).'"/>';
+                            else if ($r1[imageType]=="image/jpg")
+                                echo '<img width=100 height=170 src="data:image/jpg;base64,'.base64_encode( $r1['image'] ).'"/>';
+                            else if ($r1[imageType]=="image/png")
+                                echo '<img width=100 height=170 src="data:image/png;base64,'.base64_encode( $r1['image'] ).'"/>';
+                        
+                        
+                            echo "<h3>",$r1['album_title'],"</h3>",$r1['artist'],"<br>",$r1['genre'],"<br><br>",
                             "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r1['album_title'],"&is_public=yes'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
                             "<h4>Owner: ",$followee,"</h4>",
                             "</pre>"; 
@@ -284,7 +311,16 @@ catch(PDOException $e){
                     {
                         $flag=1;
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
-                        echo "<pre><h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
+                        echo "<pre>";
+                        if ($r[imageType]=="image/jpeg")
+                            echo '<img width=170 height=170 src="data:image/jpeg;base64,'.base64_encode( $r['image'] ).'"/>';
+                        else if ($r[imageType]=="image/jpg")
+                            echo '<img width=100 height=170 src="data:image/jpg;base64,'.base64_encode( $r['image'] ).'"/>';
+                        else if ($r[imageType]=="image/png")
+                            echo '<img width=100 height=170 src="data:image/png;base64,'.base64_encode( $r['image'] ).'"/>';
+                        
+                        
+                        echo "<h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
                         "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"&is_public=yes'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
                         "<h4>Owner: $r[username] </h4>",
                         "</pre>"; 

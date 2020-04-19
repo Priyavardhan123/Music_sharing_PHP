@@ -2,7 +2,6 @@
     session_start();
     if ( !isset($_SESSION[username]) )
         header("Location:/users/login.php");
-
 ?>
 
 <!DOCTYPE html>
@@ -98,6 +97,14 @@
         </div>
         <label class="control-label col-sm-2" for="song_title"><label for="id_genre">Genre:</label></label>
         <div class="col-sm-10"><input type="text" name="genre" maxlength="100" required id="id_genre"></div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <span class="text-danger small"></span>
+        </div>
+        <label class="control-label col-sm-2"><label for="id_genre">Album logo:</label></label>
+        <div class="col-sm-10"><input type="file" name="logo" maxlength="100" required id="id_logo"></div>
     </div>
 
     <div class="form-group">

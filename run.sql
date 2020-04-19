@@ -9,7 +9,9 @@ create table Users (
     );
 
 -- create albums table
-create table Albums ( 
+create table Albums (
+    imageType varchar(25),
+    image mediumblob,
     username VARCHAR(30),
     artist VARCHAR(230),
     album_title VARCHAR(250) NOT NULL PRIMARY KEY,
