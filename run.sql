@@ -10,8 +10,8 @@ create table Users (
 
 -- create albums table
 create table Albums (
-    imageType varchar(25),
-    image mediumblob,
+    imageType VARCHAR(25),
+    image MEDIUMBLOB,
     username VARCHAR(30),
     artist VARCHAR(230),
     album_title VARCHAR(250) NOT NULL PRIMARY KEY,
@@ -21,10 +21,10 @@ create table Albums (
     );
 
 -- create songs table
-create table Songs ( 
+create table Songs (
+    audio_file LONGBLOB,
     album_title VARCHAR(250),
     song_title VARCHAR(230),
-    audio_file VARCHAR(230),
     FOREIGN KEY (album_title) REFERENCES Albums(album_title)
     );
 
