@@ -134,11 +134,11 @@ catch(PDOException $e){
                             echo "<pre><a style='text-decoration:none' href='/music/change_type.php?username=$_GET[username]&album=$r[album_title]'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='Public' data-placement='top' >group</i></a><br><br>";
                         
                         if ($r[imageType]=="image/jpeg")
-                            echo '<img width=170 height=170 src="data:image/jpeg;base64,'.base64_encode( $r['image'] ).'"/>';
+                            echo '<img width=170 src="data:image/jpeg;base64,'.base64_encode( $r['image'] ).'"/>';
                         else if ($r[imageType]=="image/jpg")
-                            echo '<img width=100 height=170 src="data:image/jpg;base64,'.base64_encode( $r['image'] ).'"/>';
+                            echo '<img width=170 src="data:image/jpg;base64,'.base64_encode( $r['image'] ).'"/>';
                         else if ($r[imageType]=="image/png")
-                            echo '<img width=100 height=170 src="data:image/png;base64,'.base64_encode( $r['image'] ).'"/>';
+                            echo '<img width=170 src="data:image/png;base64,'.base64_encode( $r['image'] ).'"/>';
                         
                         echo "<h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
                         "<a style='text-decoration:none' href='/music/songs.php?username=",$_GET['username'],"&album=",$r['album_title'],"'><i class = 'material-icons btn btn-default' data-toggle='tool-tip' title='View Album' data-placement='top'>remove_red_eye</i></a>",
@@ -196,11 +196,11 @@ catch(PDOException $e){
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
                         echo "<pre>";
                         if ($r[imageType]=="image/jpeg")
-                            echo '<img width=170 height=170 src="data:image/jpeg;base64,'.base64_encode( $r['image'] ).'"/>';
+                            echo '<img width=170  src="data:image/jpeg;base64,'.base64_encode( $r['image'] ).'"/>';
                         else if ($r[imageType]=="image/jpg")
-                            echo '<img width=100 height=170 src="data:image/jpg;base64,'.base64_encode( $r['image'] ).'"/>';
+                            echo '<img width=170  src="data:image/jpg;base64,'.base64_encode( $r['image'] ).'"/>';
                         else if ($r[imageType]=="image/png")
-                            echo '<img width=100 height=170 src="data:image/png;base64,'.base64_encode( $r['image'] ).'"/>';
+                            echo '<img width=170  src="data:image/png;base64,'.base64_encode( $r['image'] ).'"/>';
                         
                         
                         echo "<h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",
@@ -258,11 +258,11 @@ catch(PDOException $e){
                             echo "<div class='col-sm-2' style='font-size: 10px'>";
                             echo "<pre>";
                             if ($r1[imageType]=="image/jpeg")
-                                echo '<img width=170 height=170 src="data:image/jpeg;base64,'.base64_encode( $r1['image'] ).'"/>';
+                                echo '<img width=170 src="data:image/jpeg;base64,'.base64_encode( $r1['image'] ).'"/>';
                             else if ($r1[imageType]=="image/jpg")
-                                echo '<img width=100 height=170 src="data:image/jpg;base64,'.base64_encode( $r1['image'] ).'"/>';
+                                echo '<img width=170 src="data:image/jpg;base64,'.base64_encode( $r1['image'] ).'"/>';
                             else if ($r1[imageType]=="image/png")
-                                echo '<img width=100 height=170 src="data:image/png;base64,'.base64_encode( $r1['image'] ).'"/>';
+                                echo '<img width=170 src="data:image/png;base64,'.base64_encode( $r1['image'] ).'"/>';
                         
                         
                             echo "<h3>",$r1['album_title'],"</h3>",$r1['artist'],"<br>",$r1['genre'],"<br><br>",
@@ -313,11 +313,11 @@ catch(PDOException $e){
                         echo "<div class='col-sm-2' style='font-size: 10px'>";
                         echo "<pre>";
                         if ($r[imageType]=="image/jpeg")
-                            echo '<img width=170 height=170 src="data:image/jpeg;base64,'.base64_encode( $r['image'] ).'"/>';
+                            echo '<img width=170 src="data:image/jpeg;base64,'.base64_encode( $r['image'] ).'"/>';
                         else if ($r[imageType]=="image/jpg")
-                            echo '<img width=100 height=170 src="data:image/jpg;base64,'.base64_encode( $r['image'] ).'"/>';
+                            echo '<img width=170 src="data:image/jpg;base64,'.base64_encode( $r['image'] ).'"/>';
                         else if ($r[imageType]=="image/png")
-                            echo '<img width=100 height=170 src="data:image/png;base64,'.base64_encode( $r['image'] ).'"/>';
+                            echo '<img width=170 src="data:image/png;base64,'.base64_encode( $r['image'] ).'"/>';
                         
                         
                         echo "<h3>",$r['album_title'],"</h3>",$r['artist'],"<br>",$r['genre'],"<br><br>",

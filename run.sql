@@ -22,7 +22,7 @@ create table Albums (
 
 -- create songs table
 create table Songs (
-    audio_file LONGBLOB,
+    audio_file VARCHAR(200),
     album_title VARCHAR(250),
     song_title VARCHAR(230),
     FOREIGN KEY (album_title) REFERENCES Albums(album_title)
