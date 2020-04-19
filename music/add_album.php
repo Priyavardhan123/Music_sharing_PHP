@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    if ( !isset($_SESSION[username]) )
+        header("Location:/users/login.php");
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,12 +39,21 @@
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/music/albums.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums</a></li>
-                <!-- <li class=""><a href="/music/songs.php"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs</a></li> -->
+                <li class="active"><a href="/music/albums.php?username=<?php echo $_SESSION['username']?>"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums</a></li>
+                <li class=""><a href="/music/all_songs.php?username=<?php echo $_SESSION['username']?>"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs</a></li>
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
-                
+                <li>
+                    <a href="/users/follow_user.php?username=<?php echo $_SESSION['username'] ?>">
+                        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp; Follow Users
+                    </a>
+                </li>
+                <li>
+                    <a href="/users/my_profile.php?username=<?php echo $_SESSION['username'] ?>">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; My Profile
+                    </a>
+                </li>
                 <li>
                     <a href="/users/logout.php">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
