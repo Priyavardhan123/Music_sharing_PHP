@@ -96,12 +96,25 @@
         <div class="col-sm-4 col-md-3">
             <div class="panel panel-default">
                 <div class="panel-body">
+                    <?php
+                        $query=$dbhandler->query("SELECT * FROM Albums WHERE album_title LIKE '$_GET[album]'");
+
+                        $r=$query->fetch(PDO::FETCH_ASSOC);
+                        if ($r[imageType]=="image/jpeg")
+                            echo '<img width=280 src="data:image/jpeg;base64,'.base64_encode( $r['image'] ).'"/>';
+                        else if ($r[imageType]=="image/jpg")
+                            echo '<img width=170 src="data:image/jpg;base64,'.base64_encode( $r['image'] ).'"/>';
+                        else if ($r[imageType]=="image/png")
+                            echo '<img width=170 src="data:image/png;base64,'.base64_encode( $r['image'] ).'"/>';
+                    
+                    ?>
                     <h1>
                         <?php
                             echo $_GET['album'];
                         ?>    
                         <small>
                             <?php
+                                $query=$dbhandler->query('select * from Albums');
                                 while($r=$query->fetch(PDO::FETCH_ASSOC))
                                 {
                                     if ( $r['album_title'] == $_GET['album'] )
