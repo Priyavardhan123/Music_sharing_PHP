@@ -19,7 +19,7 @@ if( !isset($_SESSION['username']) )
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Follow user</title>
+    <title>Follower</title>
     
     <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -107,24 +107,22 @@ if( !isset($_SESSION['username']) )
             <tbody>
             <tr>
                 <td>
+                <ul>
                 <?php
                     try{                        
-                        $query=$dbhandler->query("select username from Users WHERE username NOT IN (select followee from Follower WHERE follower='$_GET[username]') and username LIKE '%$_POST[search_string]%'");
+                        $query=$dbhandler->query("(select follower from Follower WHERE followee='$_SESSION[username]') ");
                         echo "<form action='/users/add_follow_users.php?follower=$_GET[username]' method='post'>";
                         $rows=0;
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {
-                            if ( $r['username'] != $_GET['username'] )
                             {
                                 $rows=1;
                                 echo "<tr>";
-                                echo "<td><input type='checkbox' name='$r[username]' value='follow'> " . $r['username'] .  '</br></td>';
+                                echo "<td><li>". $r['follower'] . " <a href='/users/follower_profile.php?follower=$r[follower]'>View Profile</a></li><br></td>";
                                 echo "</tr>";
                             }
                         }
-                        if ($rows==1)
-                            echo "<tr><td><input class='btn btn-info' type='submit' name='submit' value='Follow'/></td></tr></form>";
-                        else
+                        if ($rows==0)
                             echo "<tr><td>No Users found</td></tr></form>";
                     }
                     catch(PDOException $e){
@@ -132,54 +130,11 @@ if( !isset($_SESSION['username']) )
                         die();
                     }
                 ?>
+                </ul>
                 </td>
             </tr>
             </tbody>
         </table>
-
-        <table  class="table">
-            <thead>
-            <tr>
-                <th>
-                    <h3>Unfollow Users</h3>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                <?php
-                    try{                        
-                        $query=$dbhandler->query("select username from Users WHERE username IN (select followee from Follower WHERE follower='$_GET[username]') and username LIKE '%$_POST[search_string]%'");
-                        echo "<form method='post' action='/users/delete_follow_users.php?follower=$_GET[username]'>";
-                        $rows=0;
-                        while($r=$query->fetch(PDO::FETCH_ASSOC))
-                        {
-                            if ( $r['username'] != $_GET['username'] )   
-                            {
-                                $rows=1;
-                                echo "<tr>";
-                                echo "<td><input type='checkbox' name='$r[username]' value='unfollow'> " . $r['username'] .  '</br></td>';
-                                echo "</tr>";
-                            }
-                        }
-                        if ($rows==1)
-                            echo "<tr><td><input class='btn btn-info' type='submit' name='submit' value='Unfollow'/></td></tr></form>";
-                        else
-                            echo "<tr><td>No Users found</td></tr></form>";
-                        
-                    }
-                    catch(PDOException $e){
-                        echo $e->getMessage();
-                        die();
-                    }
-                ?>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-
     </div>
 </div>
 

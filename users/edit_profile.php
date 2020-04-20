@@ -16,7 +16,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My music</title>
+    <title>Edit Profile</title>
     
     <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">

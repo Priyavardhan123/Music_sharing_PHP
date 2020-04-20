@@ -16,7 +16,7 @@ catch(PDOException $e){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My profile</title>
+    <title>Profile</title>
     
     <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -59,8 +59,8 @@ catch(PDOException $e){
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class=""><a class="span-visitor" href="/music/albums.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums</a></li>
-                <li class=""><a class="span-visitor" href="/music/all_songs.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs</a></li>
+                <li class=""><a class="span-visitor" href="/music/albums.php?username=<?php echo $_SESSION['username']?>"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums</a></li>
+                <li class=""><a class="span-visitor" href="/music/all_songs.php?username=<?php echo $_SESSION['username']?>"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs</a></li>
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
@@ -96,11 +96,8 @@ catch(PDOException $e){
                 <th>
                 <h3>
                     <?php
-                        echo $_SESSION['username'],"'s Profile";
+                        echo $_GET['follower'],"'s Profile";
                     ?>
-                </h3>
-                <a href="/users/edit_profile.php">Edit Profile</a> | <a href="/music/albums.php?username=<?php echo $_SESSION['username']; ?>">Home</a> | <a href="/users/follower.php?username=<?php echo $_SESSION['username']; ?>">My Followers</a>
-                </th>
             </tr>
             </thead>
             <tbody>
@@ -108,7 +105,7 @@ catch(PDOException $e){
                 <td colspan=2>
                 <?php
                     try{                        
-                        $query=$dbhandler->query("select * from Users WHERE username='$_SESSION[username]'");
+                        $query=$dbhandler->query("select * from Users WHERE username='$_GET[follower]'");
                         $r=$query->fetch(PDO::FETCH_ASSOC);
 
                         echo "<tr>";
@@ -124,7 +121,7 @@ catch(PDOException $e){
                         echo "<td colspan=2><b>E-mail:</b> ", $r[email]  ,"</br></td>";
                         echo "</tr>";
 
-                        $query=$dbhandler->query("select * from Follower WHERE followee='$_SESSION[username]'");
+                        $query=$dbhandler->query("select * from Follower WHERE followee='$_GET[follower]'");
                         $follower=0;
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {
@@ -134,7 +131,7 @@ catch(PDOException $e){
                         echo "<td colspan=2><b>Followers:</b> ", $follower  ,"</br></td>";
                         echo "</tr>";
 
-                        $query=$dbhandler->query("select * from Follower WHERE follower='$_SESSION[username]'");
+                        $query=$dbhandler->query("select * from Follower WHERE follower='$_GET[follower]'");
                         $following=0;
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {
@@ -155,7 +152,7 @@ catch(PDOException $e){
                 <td colspan=2>
                 <?php
                     try{                        
-                        $query=$dbhandler->query("select * from Albums WHERE username='$_SESSION[username]'");
+                        $query=$dbhandler->query("select * from Albums WHERE username='$_GET[follower]'");
                         
                         $private=0;
                         
@@ -172,7 +169,7 @@ catch(PDOException $e){
                         echo "<td colspan=2><h4>Private Albums: ", $private  ,"</br><h4></td>";
                         echo "</tr>";
 
-                        $query=$dbhandler->query("select * from Albums WHERE username='$_SESSION[username]'");
+                        $query=$dbhandler->query("select * from Albums WHERE username='$_GET[follower]'");
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {
                             $count_songs=0;
@@ -202,7 +199,7 @@ catch(PDOException $e){
                 <td colspan=2> 
                 <?php
                     try{                        
-                        $query=$dbhandler->query("select * from Albums WHERE username='$_SESSION[username]'");
+                        $query=$dbhandler->query("select * from Albums WHERE username='$_GET[follower]'");
                         
                         $public=0;
                         
@@ -219,7 +216,7 @@ catch(PDOException $e){
                         echo "<td colspan=2><h4>Public Albums: ", $public  ,"</br><h4></td>";
                         echo "</tr>";
 
-                        $query=$dbhandler->query("select * from Albums WHERE username='$_SESSION[username]'");
+                        $query=$dbhandler->query("select * from Albums WHERE username='$_GET[follower]'");
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {
                             $count_songs=0;
@@ -249,7 +246,7 @@ catch(PDOException $e){
                 <td colspan=2> 
                 <?php
                     try{                        
-                        $query=$dbhandler->query("select DISTINCT album_title from Shared_Albums WHERE Owner='$_SESSION[username]'");
+                        $query=$dbhandler->query("select DISTINCT album_title from Shared_Albums WHERE Owner='$_GET[follower]'");
                         
                         $shared=0;
                         
@@ -262,7 +259,7 @@ catch(PDOException $e){
                         echo "<td colspan=2><h4>Shared Albums: ", $shared  ,"</br><h4></td>";
                         echo "</tr>";
 
-                        $query=$dbhandler->query("select DISTINCT album_title from Shared_Albums WHERE Owner='$_SESSION[username]'");
+                        $query=$dbhandler->query("select DISTINCT album_title from Shared_Albums WHERE Owner='$_GET[follower]'");
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {
                             $count_songs=0;
@@ -291,7 +288,7 @@ catch(PDOException $e){
                 <td colspan=2> 
                 <?php
                     try{                        
-                        $query=$dbhandler->query("select DISTINCT album_title from Shared_Albums WHERE Reciever='$_SESSION[username]'");
+                        $query=$dbhandler->query("select DISTINCT album_title from Shared_Albums WHERE Reciever='$_GET[follower]'");
                         
                         $recieved=0;
                         
@@ -304,7 +301,7 @@ catch(PDOException $e){
                         echo "<td colspan=2><h4>Received Albums: ", $recieved  ,"</br><h4></td>";
                         echo "</tr>";
 
-                        $query=$dbhandler->query("select DISTINCT album_title from Shared_Albums WHERE Reciever='$_SESSION[username]'");
+                        $query=$dbhandler->query("select DISTINCT album_title from Shared_Albums WHERE Reciever='$_GET[follower]'");
                         while($r=$query->fetch(PDO::FETCH_ASSOC))
                         {
                             $count_songs=0;
