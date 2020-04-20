@@ -15,28 +15,40 @@
           background-image: url("images/background.jpg");
           background-size: cover;
         }
+        .navbar-brand{
+            font-family: 'Satisfy', cursive;
+        }
+        .span-visitor{
+            font-size: 17px;
+            color: white;
+        }
+        .header-blue{
+            background-color: #08192d;
+        }
+
     </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+<header class="header-section clearfix header-blue">
+
     <div class="container-fluid">
 
         <!-- Header -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="/users/login.php">My music</a>
+            <a class="navbar-brand span-visitor" href="/home/index.html">CTK music</a>
         </div>
 
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/users/register.php">Register</a></li>
-                <li class=""><a href="/users/login.php">Log In</a></li>
+                <li class="active"><a class="span-visitor" href="/users/register.php">Register</a></li>
+                <li class=""><a class="span-visitor"  href="/users/login.php">Log In</a></li>
             </ul>
         </div>
 
     </div>
-</nav>
-
+    </header>
+<br>
 <div class="container-fluid">
 
     <div class="row">

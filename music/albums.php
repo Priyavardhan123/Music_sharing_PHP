@@ -50,22 +50,32 @@ catch(PDOException $e){
             display: inline-flex;
             vertical-align: bottom;
         }
+        .navbar-brand{
+            font-family: 'Satisfy', cursive;
+        }
+        .span-visitor{
+            font-size: 17px;
+            color: white;
+        }
+        .header-blue{
+            background-color: #08192d;
+        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+<header class="header-section clearfix header-blue">
     <div class="container-fluid">
 
         <!-- Header -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="/users/login.php">My music</a>
+            <a class="navbar-brand span-visitor" href="/home/index.html">CTK music</a>
         </div>
 
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/music/albums.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums</a></li>
-                <li class=""><a href="/music/all_songs.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs</a></li>
+                <li class="active"><a class="span-visitor" href="/music/albums.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums</a></li>
+                <li class=""><a class="span-visitor" href="/music/all_songs.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs</a></li>
                 <li>
                     <form class="navbar-form navbar-left" role="search" method="post" action="/music/albums.php?username=<?php echo $_GET[username]; ?>">
                         <div class="form-group">
@@ -77,17 +87,17 @@ catch(PDOException $e){
             
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="/users/follow_user.php?username=<?php echo $_SESSION['username'] ?>">
+                    <a class="span-visitor" href="/users/follow_user.php?username=<?php echo $_SESSION['username'] ?>">
                         <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp; Follow Users
                     </a>
                 </li>
                 <li>
-                    <a href="/users/my_profile.php?username=<?php echo $_SESSION['username'] ?>">
+                    <a class="span-visitor" href="/users/my_profile.php?username=<?php echo $_SESSION['username'] ?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; My Profile
                     </a>
                 </li>
                 <li>
-                    <a href="/users/logout.php">
+                    <a class="span-visitor" href="/users/logout.php">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
                     </a>
                 </li>
@@ -95,8 +105,8 @@ catch(PDOException $e){
         </div>
 
     </div>
-</nav>
-
+</header>
+<br>
 <div class="albums-container container-fluid">
 
     <!-- Albums -->

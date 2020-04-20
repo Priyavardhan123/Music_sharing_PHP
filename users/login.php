@@ -3,7 +3,7 @@
     if ( isset ($_GET['valid']) )
     {
         if ( $_GET['valid']==0 )
-            $valid = "invalid";
+            $valid = "Invalid Username or Password";
         else 
             $valid = "";
     }
@@ -21,35 +21,46 @@
     <link rel="stylesheet" type="text/css" href="/static/music/style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="/static/music/js/main.js"></script>
 
     <style>
         body {
           background-image: url("images/background.jpg");
           background-size: cover;
         }
+        .navbar-brand{
+            font-family: 'Satisfy', cursive;
+        }
+        .span-visitor{
+            font-size: 17px;
+            color: white;
+        }
+        .header-blue{
+            background-color: #08192d;
+        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+<!-- <nav class="navbar navbar-inverse"> -->
+<header class="header-section clearfix header-blue">
+
     <div class="container-fluid">
 
         <!-- Header -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="/users/login.php">My music</a>
+            <a class="navbar-brand span-visitor" href="/home/index.html">CTK music</a>
         </div>
 
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class=""><a href="/users/register.php">Register</a></li>
-                <li class="active"><a href="/users/login.php">Log In</a></li>
+                <li class=""><a class="span-visitor" href="/users/register.php">Register</a></li>
+                <li class="active"><a class="span-visitor" href="/users/login.php">Log In</a></li>
             </ul>
         </div>
 
     </div>
-</nav>
-
+</header>
+<br>
 <div class="container-fluid">
 
     <div class="row">
@@ -82,7 +93,6 @@
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="submit" name="submit" class="btn btn-success">Submit</button>
                                 &nbsp;&nbsp;&nbsp;
-                                <!-- <a href="/password-reset.php/">Forgot Password?</a> -->
                             </div>
                             
                         </div>
