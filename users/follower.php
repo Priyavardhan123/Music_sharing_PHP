@@ -62,11 +62,7 @@ if( !isset($_SESSION['username']) )
             <ul class="nav navbar-nav">
                 <li class=""><a class="span-visitor" href="/music/albums.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums</a></li>
                 <li class=""><a class="span-visitor" href="/music/all_songs.php?username=<?php echo $_GET['username']?>"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs</a></li>
-                <li>
-                    <form class="navbar-form navbar-left" role="search" method="post" action="follow_user.php?username=<?php echo $_GET[username]; ?>">
-                            <input name="search_string" value="<?php echo $_POST[search_string]; ?>" class="form-control" type="search" placeholder="Search" aria-label="Search">
-                    </form>
-                </li>
+               
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
@@ -100,7 +96,7 @@ if( !isset($_SESSION['username']) )
             <thead>
             <tr>
                 <th>
-                    <h3>Follow Users</h3>
+                    <h3>Followers</h3>
                 </th>
             </tr>
             </thead>
